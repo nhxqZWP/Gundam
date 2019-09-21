@@ -14,15 +14,16 @@ class BaseApi
 {
     private $apiKey = '';
     private $apiSecret = '';
+    private $passphrase = '';
 
-    const passphrase = '';
     const FUTURE_API_URL = 'https://www.okex.com';
     const SERVER_TIMESTAMP_URL = '/api/general/v3/time';
 
-    public function __construct($key, $secret)
+    public function __construct($key, $secret, $passPhrase)
     {
         $this->apiKey = $key;
         $this->apiSecret = $secret;
+        $this->passphrase = $passPhrase;
     }
 
     public  function request($requestPath, $params, $method, $cursor = false)
@@ -35,7 +36,7 @@ class BaseApi
         $body = $params ? json_encode($params, JSON_UNESCAPED_SLASHES) : '';
         $timestamp = self::getServerTimestamp();
         $sign = self::signature($timestamp, $method, $requestPath, $body, $this->apiSecret);
-        $headers = self::getHeader($this->apiKey, $sign, $timestamp, self::passphrase);
+        $headers = self::getHeader($this->apiKey, $sign, $timestamp, $this->passphrase);
         $ch= curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         if($method == "POST") {

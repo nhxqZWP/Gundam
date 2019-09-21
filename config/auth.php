@@ -102,7 +102,8 @@ return [
     'api' => [
         'okex' => [
             'key' => env('OKEX_KEY'),
-            'secret' => env('OKEX_SECRET')
+            'secret' => env('OKEX_SECRET'),
+            'passPhrase' => env('PASS_PHRASE'),
         ]
     ]
 ];
