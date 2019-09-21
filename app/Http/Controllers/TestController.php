@@ -15,8 +15,9 @@ class TestController extends Controller
 {
     public function index()
     {
+        $btcusd = 'BTC-USD-SWAP';
         $okexApi = new OkexApi(Config('auth.api.okex.key'), Config('auth.api.okex.secret'), Config('auth.api.okex.passPhrase'));
-        dd($okexApi->getTicker());
+        dd($okexApi->getPrice($btcusd));
         dd(Config('auth.api.okex'));
     }
 }
