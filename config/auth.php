@@ -99,4 +99,10 @@ return [
         ],
     ],
 
+    'api' => [
+        'okex' => [
+            'key' => env('OKEX_KEY'),
+            'secret' => env('OKEX_SECRET')
+        ]
+    ]
 ];
