@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    BTC-USD-SWAP: {{ $price }}
                 </div>
             </div>
         </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Api\OkexApi;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +24,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $btcusd = 'BTC-USD-SWAP';
+        $okexApi = new OkexApi(Config('auth.api.okex.key'), Config('auth.api.okex.secret'), Config('auth.api.okex.passPhrase'));
+        $data = [];
+        $data['price']= $okexApi->getPrice($btcusd)['mark_price'];
+        return view('home', $data);
     }
 }
