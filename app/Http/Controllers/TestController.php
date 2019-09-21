@@ -16,7 +16,7 @@ class TestController extends Controller
     public function index()
     {
         $okexApi = new OkexApi(Config('auth.api.okex.key'), Config('auth.api.okex.secret'), Config('auth.api.okex.passPhrase'));
-        dd($okexApi->getAccounts());
+        dd($okexApi->getTicker());
         dd(Config('auth.api.okex'));
     }
 }
