@@ -169,7 +169,7 @@ class OkexApi extends BaseApi
     public function getOrderList($instrument_id='', $status, $froms = '', $to = '', $limit = '')
     {
         //订单状态("-2":失败,"-1":撤单成功,"0":等待成交 ,"1":部分成交, "2":完全成交,"3":下单中,"4":撤单中,"6": 未完成（等待成交+部分成交），"7":已完成（撤单成功+完全成交））
-        $params = ['status' => $status, 'instrument_id' => $instrument_id];
+        $params = ['state' => $status, 'instrument_id' => $instrument_id];
         if ($froms) $params['before'] = $froms;
         if ($to) $params['after'] = $to;
         if ($limit) $params['limit'] = $limit;
