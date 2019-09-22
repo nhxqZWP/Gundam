@@ -26,8 +26,10 @@ class HomeController extends Controller
     {
         $btcusd = 'BTC-USD-SWAP';
         $okexApi = new OkexApi(Config('auth.api.okex.key'), Config('auth.api.okex.secret'), Config('auth.api.okex.passPhrase'));
+        dd($okexApi->getSpecificPosition($btcusd));
+
         $data = [];
-        $data['price']= $okexApi->getPrice($btcusd)['mark_price'];
+        $data['price'] = $okexApi->getPrice($btcusd)['mark_price'];
         return view('home', $data);
     }
 }
