@@ -26,7 +26,21 @@ class HomeController extends Controller
     {
         $btcusd = 'BTC-USD-SWAP';
         $okexApi = new OkexApi(Config('auth.api.okex.key'), Config('auth.api.okex.secret'), Config('auth.api.okex.passPhrase'));
-        dd($okexApi->getSpecificPosition($btcusd));
+
+        dd($okexApi->getOrderList($btcusd, 6));
+
+        $position = $okexApi->getSpecificPosition($btcusd);
+        //单个合约持仓信息
+        if (isset($position['holding'], $position['holding'][0]) && $position['holding'][0]['position'] > 0) {
+            $shift = 100; //触发平仓的偏移量
+            $side = $position['holding'][0]['side'];
+            if ($side == 'short') {
+                //当前是卖单
+
+            } elseif ($side == 'long') {
+                //当前是买单
+            }
+        }
 
         $data = [];
         $data['price'] = $okexApi->getPrice($btcusd)['mark_price'];

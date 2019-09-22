@@ -132,16 +132,15 @@ class OkexApi extends BaseApi
         return $this->request(self::SWAP_LEDGER.$symbol.'/ledger', [], 'GET');
     }
     // 下单
-    public function takeOrder($client_oid, $instrument_id, $otype, $price, $size, $match_price, $leverage)
+    public function takeOrder($instrument_id, $otype, $price, $size, $match_price)
     {
         $params = [
-            'client_oid' => $client_oid, //否	由您设置的订单id来唯一标识您的订单，数字+字母（大小写）或者纯字母（大小写）类型，1-32位
+//            'client_oid' => $client_oid, //否	由您设置的订单id来唯一标识您的订单，数字+字母（大小写）或者纯字母（大小写）类型，1-32位
             'instrument_id'=> $instrument_id, //合约名称，如BTC-USD-SWAP
             'type' => $otype, //可填参数：1:开多 2:开空 3:平多 4:平空
             'price' => $price,
             'size' => $size, //否	是否以对手价下单 0:不是 1:是，当以对手价下单，order_type只能选择0:普通委托
             'match_price' => $match_price,
-            'leverage' => $leverage
         ];
         return $this->request(self::SWAP_ORDER, $params, 'POST');
     }
@@ -167,8 +166,9 @@ class OkexApi extends BaseApi
         return $this->request(self::SWAP_REVOKE_ORDERS.$instrument_id, $params, 'POST');
     }
     // 获取订单列表
-    public function getOrderList($status, $froms, $to, $limit, $instrument_id='')
+    public function getOrderList($instrument_id='', $status, $froms = '', $to = '', $limit = '')
     {
+        //订单状态("-2":失败,"-1":撤单成功,"0":等待成交 ,"1":部分成交, "2":完全成交,"3":下单中,"4":撤单中,"6": 未完成（等待成交+部分成交），"7":已完成（撤单成功+完全成交））
         $params = ['status' => $status, 'instrument_id' => $instrument_id];
         if ($froms) $params['before'] = $froms;
         if ($to) $params['after'] = $to;
